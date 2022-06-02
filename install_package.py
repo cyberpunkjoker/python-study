@@ -2,8 +2,6 @@ import re
 import os
 from threading import Thread
 
-install_log_path = 'python/asset/txt-log/installedPackage.txt'
-
 def read_text(read_path):
   with open(read_path, 'r') as file:
     data = file.readlines()
@@ -21,12 +19,12 @@ def exe_cmd(*, cmd):
 def to_checked():
   os.system('pip3 list')
 
-def main(need_path) -> None:
+def main() -> None:
   ###------------------- 获取本机已经安装的 pip 包
   os.system("pip3 freeze > installedPackage.txt")
-  installed_package = read_text(install_log_path)
+  installed_package = read_text('installedPackage.txt')
   ###------------------- 读取项目所需要的 pip 包
-  need_package = read_text(need_path)
+  need_package = read_text('asset/txt-log/needPackage.txt')
   to_install_list = []
 
   for need in need_package:
@@ -45,4 +43,4 @@ def main(need_path) -> None:
   to_checked()
 
 if __name__ == '__main__':
-  main('./needPackage.txt')
+  main()
